@@ -16,7 +16,7 @@ Aplicação em Vue 3 que consome via API do meu app de `backend Django-Ninja` os
 
 <br/>
 <div align="center">
-<img height="600" src="https://i.imgur.com/wpK7zFE.png" alt="Tela Inicial">
+<img height="1200" src="https://i.imgur.com/wpK7zFE.png" alt="Tela Inicial">
 </div>
 
 ## Como rodar o projeto localmente ?
