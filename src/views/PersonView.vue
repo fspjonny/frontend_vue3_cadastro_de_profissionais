@@ -68,8 +68,12 @@ filteredData(userId.value)
                     <TabPersonUpdateData/>
                 </div>
                 <div v-show="activeTab === 2">
-                    <h1>Contente 3</h1>
-                    <p>Criar algo de exclusão!!!</p>
+                    <div class="flex justify-center mt-12">
+                        <div role="alert" class="flex justify-center alert alert-warning w-[80%]">
+                            <i class="fa-solid fa-triangle-exclamation text-3xl text-red-600"></i>
+                            <span>Atenção!<br/>Exclusões não são permitidas nessa demonstração!</span>
+                        </div>                        
+                    </div>
                 </div>
             </div>
             

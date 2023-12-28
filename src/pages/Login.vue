@@ -34,7 +34,7 @@ const sendDataRequest = () => {
     }
 
     // *LEMBRAR: Mover todo esse código fetch para o Pínia futuramente.
-    fetch('http://127.0.0.1:8000/account/api/v1/logon/', {
+    fetch('https://devfabiopedro.pythonanywhere.com/account/api/v1/logon/', {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
@@ -93,6 +93,7 @@ const sendDataRequest = () => {
         }
     })
     .catch((error) => { // Mensagem de aviso para o caso de servidor fora do ar, ou inacessível.
+        console.log(error)
         no_server.value = true
     })
 }
@@ -109,7 +110,7 @@ const sendDataRequest = () => {
                     uppercase">funcionários</p>
                     <div class="flex flex-col justify-center items-center mt-5">
                         <div class="card sm:w-96 pb-12">
-                            Login
+                            <span class="ml-5">Login</span>
                             <form @submit.prevent="sendDataRequest">
                                 <span class="flex flex-col m-5 gap-5">
                                     <input type="text" placeholder="Usuário" v-model="dados.username" class="input sm:input-sm input-bordered w-full max-w-xs"/>
@@ -120,7 +121,9 @@ const sendDataRequest = () => {
                                         <i class="px-1 btn btn-ghost fa-solid fa-eye-slash" @click="changeView" v-else></i>
                                     </div>
                                 </span>
-                                    <button type="submit" class="btn sm:btn-sm btn-primary mt-16">Logon</button>
+                                <div class="flex justify-center mt-16">
+                                    <button type="submit" class="btn sm:btn-sm btn-primary">Logon</button>
+                                </div>
                             </form>
                             
                             <!-- mensagens ao usuário -->

@@ -27,12 +27,16 @@ const muda = () => {
 
 <template>
     <div class="bg-gradient-to-b from-slate-200 to-slate-600 w-screen, h-screen">
-        <div class="absolute flex flex-row items-center right-0 p-2 gap-2">
-            <i v-if="isChecked" class="fa-solid fa-moon text-xl"></i>
-            <i v-else class="fa-solid fa-sun text-xl"></i>
-            <input @click="muda" v-model="isChecked" type="checkbox" class="toggle opacity-50" :checked="isChecked"/>
-        </div>
-
+        <label class="swap absolute flex flex-row right-5 p-3"> 
+          <!-- this hidden checkbox controls the state -->
+          <input @click="muda" v-model="isChecked" type="checkbox"/>
+          
+          <!-- Lua icone -->
+          <i v-if="isChecked" class="fa-solid fa-moon text-3xl text-black"></i>
+          <!-- Sol icone -->
+          <i v-else class="fa-solid fa-sun text-3xl text-white"></i>
+        </label>
+        
         <Hero/>
         <PersonsComp/>
         <BigFooter/>
