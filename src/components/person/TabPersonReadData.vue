@@ -50,7 +50,7 @@ const dataTabRead = inject('dataApi')
 
         <span class="flex gap-2 ml-2 mt-4 items-center alert">
             <i class="fa-solid fa-map-location-dot"></i>
-            <a class="text-blue-500" :href="getMapGoogle(dataTabRead.items[0].endereco)" target="_blank">
+            <a class="underline text-blue-500" :href="getMapGoogle(dataTabRead.items[0].endereco)" target="_blank">
                 <p>{{ dataTabRead.items[0].endereco }}</p>
             </a>
         </span>

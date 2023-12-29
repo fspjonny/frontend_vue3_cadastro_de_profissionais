@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+const theme = ref(localStorage.getItem('mode'))
 const router = useRouter()
 const noView = ref(false)
 const changeView = () => { noView.value = !noView.value}
@@ -9,12 +10,41 @@ const no_server = ref(false)
 const has_user = ref(true)
 const expired_token = ref(false)
 const have_not_token = ref(false)
+const textColorClass = ref('')
 
+// Carrega o tema Darkmode salvo
+onMounted(() => {
+  document.querySelector("html").setAttribute("data-theme", theme.value)
+  if (theme.value === 'dark') {
+    textColorClass.value = 'text-white'
+} else {
+      textColorClass.value = 'text-black'
+  }
+})
+
+// Verifico se o usuário já tem uma sessão ativa.
+const has_session = ref(sessionStorage.getItem('sessao'))
+// Verifico se essa sessão não é nula.
+if (has_session.value !== null) {
+    const valor = sessionStorage.getItem('sessao')
+    // Se ela não é nula, mas não tem usuário, obrigo o login.
+    if (valor === "") {
+        router.push('/')        
+    } else {
+    // Se ela não é nula, e já tem usuário, fica no cadastro.
+        router.push('/container')        
+        
+    }
+} else {
+    // Se não existir uma sessão, ela será criada.
+    sessionStorage.setItem('sessao', '')
+}
+
+// Dados em formato JSON para enviar no cabeçalho da requisição.
 const dados = ref({
     username:'',
     password:'',
 })
-
 
 const validateNotExpiredToken = (dateString) => {
   const dateNow = new Date().toISOString()
@@ -43,6 +73,8 @@ const sendDataRequest = () => {
     })
     .then((response) => response.json())
     .then((data) => {
+        // Gravo uma sessão para o usuário.
+        sessionStorage.setItem('sessao', data.username)
         // Se Chegou até aqui, o servidor remoto está respondendo normalmente.
         no_server.value = false
 
@@ -76,8 +108,10 @@ const sendDataRequest = () => {
                 const userDataInfoJson = JSON.stringify(userDataInfo)
                 localStorage.setItem("userdata",userDataInfoJson)
                 // Se o token é válido, faz a navegação automática até a próxima página.
+                sessionStorage.setItem('sessao', data.username)
                 router.push('/container')
             } else { // Se estiver expirado, permanece na mesma página e será apresentado uma mensagem de aviso.
+                sessionStorage.setItem('sessao', '')
                 expired_token.value = true
             }
         /*
@@ -86,9 +120,11 @@ const sendDataRequest = () => {
             Ao fazer o login, ele receberá uma mensagem de aviso sobre isso.
         */
         } else if(data['detail'] === '202') {
+            sessionStorage.setItem('sessao', '')
             have_not_token.value = true
 
         } else { // Mensagem de erro para os casos de credencial inválida.
+            sessionStorage.setItem('sessao', '')
             has_user.value = false
         }
     })
@@ -110,15 +146,15 @@ const sendDataRequest = () => {
                     uppercase">funcionários</p>
                     <div class="flex flex-col justify-center items-center mt-5">
                         <div class="card sm:w-96 pb-12">
-                            <span class="ml-5">Login</span>
+                            <span class="ml-5" :class="textColorClass">Login</span>
                             <form @submit.prevent="sendDataRequest">
                                 <span class="flex flex-col m-5 gap-5">
-                                    <input type="text" placeholder="Usuário" v-model="dados.username" class="input sm:input-sm input-bordered w-full max-w-xs"/>
+                                    <input type="text" placeholder="Usuário" v-model="dados.username" class="input sm:input-sm input-bordered w-full max-w-xs" :class="textColorClass"/>
                                     <div class="flex flex-row items-center">
                                         <input :type="noView ? 'text' : 'password'" placeholder="Senha" v-model="dados.password"
-                                        class="input sm:input-sm input-bordered w-full"/>
-                                        <i class="px-1 btn btn-ghost fa-solid fa-eye" @click="changeView" v-if="!noView"></i>
-                                        <i class="px-1 btn btn-ghost fa-solid fa-eye-slash" @click="changeView" v-else></i>
+                                        class="input sm:input-sm input-bordered w-full" :class="textColorClass"/>
+                                        <i class="px-1 btn btn-ghost fa-solid fa-eye" :class="textColorClass" @click="changeView" v-if="!noView"></i>
+                                        <i class="px-1 btn btn-ghost fa-solid fa-eye-slash" :class="textColorClass" @click="changeView" v-else></i>
                                     </div>
                                 </span>
                                 <div class="flex justify-center mt-16">
@@ -146,7 +182,6 @@ const sendDataRequest = () => {
                                 <i class="fa-solid fa-circle-info text-lg"></i>
                                 <span>Info: Você ainda não criou seu token de acesso!</span>
                             </div>
-
                         </div>
                     </div>
                 </div>

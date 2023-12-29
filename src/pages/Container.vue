@@ -5,8 +5,17 @@ import PersonsComp from '../components/PersonsComponent.vue';
 
 import { onMounted, ref } from 'vue';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 const isChecked = ref(localStorage.getItem('check')) 
 const theme = ref(localStorage.getItem('mode'))
+
+const sessao = ref(sessionStorage.getItem('sessao'))
+// Se o usuário não exitir ou não estiver logado no backend a sessão não será vazia e voltará a home
+if(sessao.value === '') {
+  router.push('/')
+}
 
 onMounted(() => {
   document.querySelector("html").setAttribute("data-theme", theme.value)
