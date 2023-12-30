@@ -1,27 +1,31 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Fluxo de trabalho simples para implementar
+# conteúdo estático na GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Executa sobre as atualizações mirando o ramo padrão
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Permite-nos executar este fluxo de trabalho manualmente
+  # a partir da aba de Ações (ou `Actions`)
   workflow_dispatch:
 
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+# Define as permissões do GITHUB_TOKEN para permitir
+# a implementação na GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Permitir uma implementação simultânea
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Único trabalho de implementação
+  # uma vez que apenas estamos implementando
   deploy:
     environment:
       name: github-pages
@@ -44,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          # Upload dist repository
+          # Carregar o repositório de distribuição
           path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
