@@ -12,7 +12,7 @@ Aplicação em Vue 3 que consome via API do meu app de `backend Django-Ninja` os
 
 ### Para ver este APP funcionando na internet acesse:
 
-### http://url.com/ (ainda em fase de publicação)
+### https://fspjonny.github.io/frontend_vue3_cadastro_de_profissionais/
 
 <br/>
 <div align="center">
