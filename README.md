@@ -14,9 +14,15 @@ Aplicação em Vue 3 que consome via API do meu app de `backend Django-Ninja` os
 
 ### https://fspjonny.github.io/frontend_vue3_cadastro_de_profissionais/
 
+### Utilize usuário `teste` e a senha `Teste@1234`
+
+- Se o Token do usuário estiver expirado, você poderá renovar ele com o mesmo `usuário e senha` acima, clicando aqui: [API Pessoas](https://devfabiopedro.pythonanywhere.com/account/)
+
+###### Você poderá alterar os dados do cadastro, mas não poderá excluir para não estragar a experiência de outros testadores.
+
 <br/>
 <div align="center">
-<img height="1200" src="https://i.imgur.com/wpK7zFE.png" alt="Tela Inicial">
+<img width="800" src="https://i.imgur.com/gjAPRpp.png" alt="Tela Inicial">
 </div>
 
 ## Como rodar o projeto localmente ?
