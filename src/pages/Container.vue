@@ -15,6 +15,8 @@ const sessao = ref(sessionStorage.getItem('sessao'))
 // Se o usuário não exitir ou não estiver logado no backend a sessão não será vazia e voltará a home
 if(sessao.value === '') {
   router.push('/')
+} else {
+  router.push('/container')
 }
 
 onMounted(() => {
