@@ -113,6 +113,9 @@ const sendDataRequest = () => {
             } else { // Se estiver expirado, permanece na mesma página e será apresentado uma mensagem de aviso.
                 sessionStorage.setItem('sessao', '')
                 expired_token.value = true
+                setTimeout(() => {
+                    expired_token.value = false
+                }, 5000);
             }
         /*
             Um caso específico que acontece é: O usuário é registrado lá no backend, mas ele
@@ -122,15 +125,24 @@ const sendDataRequest = () => {
         } else if(data['detail'] === '202') {
             sessionStorage.setItem('sessao', '')
             have_not_token.value = true
+            setTimeout(() => {
+                have_not_token.value = false
+            }, 5000);
 
         } else { // Mensagem de erro para os casos de credencial inválida.
             sessionStorage.setItem('sessao', '')
             has_user.value = false
+            setTimeout(() => {
+                has_user.value = true
+            }, 5000);
         }
     })
     .catch((error) => { // Mensagem de aviso para o caso de servidor fora do ar, ou inacessível.
         console.log(error)
         no_server.value = true
+        setTimeout(() => {
+            no_server.value = false
+        }, 5000);
     })
 }
 </script>
